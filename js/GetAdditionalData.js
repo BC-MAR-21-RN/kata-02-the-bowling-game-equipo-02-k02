@@ -1,60 +1,17 @@
 const GeneRateRandom = require("./GenerateRandom")
+const GetCumulativeTotal = require("./GetCumulativeTotal")
+const GetNextFirstShot = require("./GetFIrstShot")
+const { GetNextTotal, GetNext2Total } = require("./GetNextTotals")
 
 
 function GetAdditionalData(score) {
     this.score = score
     this.score.map((item, index) => {
 
-        const cumulativeTotal = () => {
-            if (index > 0) {
-                try {
-                    return this.score[index - 1].points
-                } catch (error) {
-                    return "no exist"
-                }
-            }
-            else {
-
-                return 0
-            }
-        }
-
-        const nextFirstShot = () => {
-            if (index <= 8) {
-                try {
-                    return this.score[index + 1].shot1
-                } catch (error) {
-                    return "no exist"
-                }
-            }
-            return 0
-        }
-
-        const nextTotal = () => {
-            if (index <= 8) {
-                try {
-                    return this.score[index + 1].total
-                } catch (error) {
-                    return "no exist"
-                }
-            }
-            return 0
-        }
-        const next2Total = () => {
-            if (index <= 7) {
-                try {
-                    return this.score[index + 2].total
-                } catch (error) {
-                    return "no exist"
-                }
-            }
-            return 0
-        }
-
-        const addition = nextFirstShot()
-        const cumulative = cumulativeTotal()
-        const nextTot = nextTotal()
-        const next2Tot = next2Total()
+        const addition = GetNextFirstShot(this.score,index)
+        const cumulative = GetCumulativeTotal(this.score,index)
+        const nextTot = GetNextTotal()
+        const next2Tot = GetNext2Total()
 
 
         if (item.shot1 === 10) {
