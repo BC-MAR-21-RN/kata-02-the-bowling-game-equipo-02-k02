@@ -1,9 +1,10 @@
+const GeneRateRandom = require("./GenerateRandom")
 
 
 function GetAdditionalData(score) {
     this.score = score
     this.score.map((item, index) => {
-  
+
         const cumulativeTotal = () => {
             if (index > 0) {
                 try {
@@ -56,13 +57,17 @@ function GetAdditionalData(score) {
         const next2Tot = next2Total()
 
 
-        if (item.shot1 === 10 ) {
+        if (item.shot1 === 10) {
             if (nextTot === "no exist" || next2Tot === "no exist" || cumulative === "no exist") {
                 return item.points = ""
             }
-            return item.points = cumulative + item.total + nextTot + next2Tot
+            if (index < 9) {
+
+                return item.points = cumulative + item.total + nextTot + next2Tot
+            }
+            return item.points = cumulative + item.total + GeneRateRandom(10) + GeneRateRandom(10)
         }
-        else if (item.total === 10|| item.shot2 === 10) {
+        else if (item.total === 10 || item.shot2 === 10) {
             if (addition === "no exist" || cumulative === "no exist") {
                 return item.points = ""
             }
@@ -74,7 +79,7 @@ function GetAdditionalData(score) {
             }
             return item.points = cumulative + item.total
         }
-   
+
 
     })
 
